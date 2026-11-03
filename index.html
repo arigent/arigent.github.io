@@ -12,7 +12,8 @@
 <link rel="canonical" href="https://arigent.github.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -33,61 +34,73 @@
 </script>
 <style>
   :root {
-    --ink: #1d2329;
-    --muted: #5d6872;
-    --accent: #1f5f6b;
-    --accent-soft: #e6f0f1;
-    --line: #e2e5e7;
-    --bg: #fbfaf7;
+    --ink: #1e2a36;
+    --muted: #5a6875;
+    --accent: #2b4c7e;
+    --accent-soft: #e4ebf4;
+    --side: #eef2f6;
+    --line: #e3e7ec;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  html, body { margin: 0; }
   body {
-    margin: 0;
-    font: 16.5px/1.7 "Inter", system-ui, -apple-system, sans-serif;
+    font: 16px/1.7 "Inter", system-ui, -apple-system, sans-serif;
     color: var(--ink);
-    background: var(--bg);
+    background: #ffffff;
   }
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  /* Navigation */
-  header.top {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(251, 250, 247, 0.94);
-    backdrop-filter: blur(6px);
+  /* Layout: sidebar + content */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 270px; flex-shrink: 0;
+    background: var(--side);
+    padding: 56px 28px 32px;
+    text-align: center;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .avatar {
+    width: 150px; height: 150px; border-radius: 50%;
+    object-fit: cover; object-position: center top;
+    display: block; margin: 0 auto 18px;
+  }
+  .name { display: block; font-size: 1.3rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
+  .name:hover { text-decoration: none; color: var(--accent); }
+  .title { color: var(--muted); font-size: 0.9rem; line-height: 1.5; margin: 8px 0 24px; }
+  .side-links { list-style: none; padding: 0; margin: 0 auto; display: inline-block; text-align: left; }
+  .side-links li { margin: 6px 0; }
+  .side-links a { display: flex; align-items: center; gap: 10px; color: var(--ink); font-size: 0.92rem; }
+  .side-links a:hover { color: var(--accent); text-decoration: none; }
+  .side-links i { font-size: 1.15rem; color: var(--accent); width: 20px; text-align: center; }
+
+  /* Content area */
+  .content { flex: 1; min-width: 0; background: #ffffff; }
+  .tabs {
+    display: flex; gap: 28px;
+    padding: 28px 56px 0;
     border-bottom: 1px solid var(--line);
+    overflow-x: auto;
   }
-  .top-inner {
-    max-width: 860px; margin: 0 auto; padding: 14px 24px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  .tabs a {
+    color: var(--muted); font-size: 0.95rem; font-weight: 500;
+    padding-bottom: 12px; border-bottom: 2px solid transparent; white-space: nowrap;
   }
-  .brand { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); }
-  nav a { margin-left: 20px; color: var(--muted); font-size: 0.93rem; font-weight: 500; }
-  nav a:hover { color: var(--accent); text-decoration: none; }
+  .tabs a:hover { color: var(--accent); text-decoration: none; }
+  .tabs a.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  main { max-width: 860px; margin: 0 auto; padding: 0 24px 64px; }
-  section { padding-top: 56px; }
-  h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; line-height: 1.25; }
-  h2 {
-    font-size: 1.6rem; margin: 0 0 20px; padding-bottom: 8px;
-    border-bottom: 2px solid var(--accent); display: inline-block;
+  main { max-width: 820px; padding: 8px 56px 56px; }
+  .page { display: none; }
+  .page.active { display: block; }
+  h1, h2, h3 { line-height: 1.3; }
+  .page-title { font-size: 1.75rem; font-weight: 600; color: var(--accent); margin: 40px 0 16px; }
+  h2 { font-size: 1.2rem; font-weight: 600; color: var(--accent); margin: 40px 0 8px; }
+  h3 {
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); margin: 36px 0 8px;
   }
-  h3 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--muted); font-family: "Inter", sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.82rem; }
-
-  /* Hero */
-  .hero { display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; padding-top: 48px; }
-  .hero img { width: 200px; height: 240px; object-fit: cover; border-radius: 6px; }
-  .hero h1 { font-size: 2.4rem; margin: 0 0 4px; }
-  .role { color: var(--muted); margin: 0 0 18px; font-size: 1.02rem; line-height: 1.5; }
-  .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-  .links a {
-    padding: 6px 14px; border: 1px solid var(--accent); border-radius: 999px;
-    font-size: 0.88rem; font-weight: 500;
-  }
-  .links a.primary { background: var(--accent); color: #fff; }
-  .links a:hover { background: var(--accent-soft); text-decoration: none; }
-  .links a.primary:hover { background: #174a53; }
 
   /* Lists */
   ul.clean { list-style: none; padding: 0; margin: 0; }
@@ -101,215 +114,235 @@
   }
   .project { padding: 16px 0; border-bottom: 1px solid var(--line); }
   .project:last-child { border-bottom: none; }
-  .project strong { display: block; }
+  .project strong { display: block; font-weight: 600; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
 
-  footer { border-top: 1px solid var(--line); text-align: center; padding: 24px; color: var(--muted); font-size: 0.85rem; }
+  footer { padding: 20px 56px 32px; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--line); }
 
-  @media (max-width: 680px) {
-    nav { display: none; }
-    .hero { grid-template-columns: 1fr; gap: 20px; }
-    .hero img { width: 160px; height: 190px; }
-    .hero h1 { font-size: 2rem; }
+  /* Phones and small tablets */
+  @media (max-width: 860px) {
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: static; padding: 32px 20px 24px; }
+    .avatar { width: 110px; height: 110px; }
+    .title { margin-bottom: 16px; }
+    .side-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; }
+    .side-links li { margin: 0; }
+    .tabs { padding: 16px 20px 0; gap: 22px; }
+    main { padding: 0 20px 40px; }
+    .page-title { margin-top: 28px; }
+    footer { padding: 20px; }
     .two-col { grid-template-columns: 1fr; }
   }
 </style>
+<noscript><style>.page { display: block; }</style></noscript>
 </head>
 <body>
+<div class="layout">
 
-<header class="top">
-  <div class="top-inner">
-    <a class="brand" href="#">Arianna Gentilini</a>
-    <nav>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <img class="avatar" src="photo.jpg" alt="Portrait of Arianna Gentilini">
+    <a class="name" href="#about">Arianna Gentilini</a>
+    <p class="title">British Academy Postdoctoral Fellow<br>Imperial College London</p>
+    <ul class="side-links">
+      <li><a href="cv.pdf"><i class="ti ti-file-text" aria-hidden="true"></i>CV</a></li>
+      <li><a href="mailto:a.gentilini@imperial.ac.uk"><i class="ti ti-mail" aria-hidden="true"></i>Email</a></li>
+      <li><a href="https://scholar.google.com/citations?user=Y7LkgEoAAAAJ&amp;hl=en"><i class="ti ti-school" aria-hidden="true"></i>Google Scholar</a></li>
+      <li><a href="https://www.linkedin.com/in/arianna-gentilini-b0417212a/"><i class="ti ti-brand-linkedin" aria-hidden="true"></i>LinkedIn</a></li>
+      <li><a href="https://twitter.com/agentilini_"><i class="ti ti-brand-x" aria-hidden="true"></i>X / Twitter</a></li>
+    </ul>
+  </aside>
+
+  <div class="content">
+    <!-- MENU -->
+    <nav class="tabs">
+      <a href="#about">About</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#teaching">Teaching</a>
       <a href="#talks">Talks</a>
-      <a href="#contact">Contact</a>
     </nav>
+
+    <main>
+
+      <!-- ABOUT -->
+      <section class="page" id="about">
+        <h1 class="page-title">About me</h1>
+
+        <p>I am a health economist and British Academy Postdoctoral Fellow at the Department of Economics &amp; Public Policy, Imperial College London, where I lead an independent three-year research programme on drug repurposing. My research focuses on pharmaceutical innovation, health technology assessment (HTA) and access to medicines.</p>
+
+        <p>Before the fellowship, I was a Postdoctoral Research Associate at Imperial College London, where I was co-investigator on a Gatsby Foundation project on the productivity of UK biopharmaceutical R&amp;D and contributed to the EU-funded Hi-Prix project on pharmaceutical innovation and equitable access. I completed my ESRC-funded PhD at the London School of Economics, studying the role of patient organisations in innovation and access to medicines for rare diseases.</p>
+
+        <p>My work uses both quantitative and qualitative methods, including econometrics, survival analysis, document analysis and interviews. It has been published in journals such as <em>The Lancet Oncology</em>, <em>The BMJ</em>, <em>Social Science &amp; Medicine</em> and <em>Value in Health</em>, and has been covered by <a href="https://www.theguardian.com/science/2023/jul/22/revealed-drug-firms-funding-uk-patient-groups-that-lobby-for-nhs-approval-of-medicines">The Observer</a>. Beyond academia, I have worked as a health economist at NICE, as a consultant for the World Bank, and in health economics and market access consultancies.</p>
+
+        <h2>Contact</h2>
+        <p><a href="mailto:a.gentilini@imperial.ac.uk">a.gentilini@imperial.ac.uk</a><br>
+        <a href="mailto:arianna.gentilini.ag@gmail.com">arianna.gentilini.ag@gmail.com</a></p>
+      </section>
+
+      <!-- RESEARCH -->
+      <section class="page" id="research">
+        <h1 class="page-title">Research</h1>
+        <p>My research asks how policy, institutions and stakeholders shape which medicines are developed, how they are valued, and who gets access to them.</p>
+
+        <h3>Current and recent projects</h3>
+        <div class="project">
+          <strong>Drug repurposing <span class="tag">Since 2026</span></strong>
+          <span class="meta">British Academy Postdoctoral Fellowship, Imperial College London (£580,176). Principal investigator.</span>
+        </div>
+        <div class="project">
+          <strong>Drug Development Productivity: The Performance of the UK Biopharmaceutical Industry <span class="tag">2024–2026</span></strong>
+          <span class="meta">Gatsby Foundation (£154,317). Co-investigator.</span>
+        </div>
+        <div class="project">
+          <strong>Hi-Prix: Incentives for pharmaceutical innovation and equitable access <span class="tag">2024–2026</span></strong>
+          <span class="meta">EU Horizon Europe. Comparative policy analysis of innovation incentives across countries.</span>
+        </div>
+        <div class="project">
+          <strong>IMPACT HTA <span class="tag">2020–2024</span></strong>
+          <span class="meta">EU-funded. Drivers of reimbursement timelines and outcomes across OECD countries.</span>
+        </div>
+
+        <h3>Awards and funding</h3>
+        <ul class="clean">
+          <li>British Academy Postdoctoral Fellowship, 2026</li>
+          <li>Highly Commended, LSE Class Teacher Awards, 2023–24</li>
+          <li>“Italy Made Me” award for outstanding research by Italian early-career researchers in the UK, 2023</li>
+          <li>ESRC Doctoral Training Partnership studentship, 2020–2024</li>
+        </ul>
+      </section>
+
+      <!-- PUBLICATIONS -->
+      <section class="page" id="publications">
+        <h1 class="page-title">Publications</h1>
+        <p>For an up-to-date list with citations, see my <a href="https://scholar.google.com/citations?user=Y7LkgEoAAAAJ&amp;hl=en">Google Scholar profile</a>.</p>
+
+        <h3>Peer-reviewed articles</h3>
+        <ul class="clean">
+          <li><span class="pub-title"><a href="https://doi.org/10.1186/s12992-026-01205-z">Patient organizations involvement in healthcare: a rapid review and conceptual framework</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Parvanova I, Ghazi S et al. <em>Globalization and Health</em>, 2026.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2026.01.018">Conflicts of interest in FDA advisory committees: a systematic literature review</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Raymakers AJN, Rand LZ. <em>Value in Health</em>, 2026.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1080/20523211.2025.2462450">Expanding access to NCD services via community retail pharmacies in LMICs: a systematic review of the literature</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Kasonde L, Babar ZUD. <em>Journal of Pharmaceutical Policy and Practice</em>, 2025.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2024.12.009">Rare disease policy in high-income countries: an overview of achievements, challenges, and solutions</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Neez E, Wong-Rieger D. <em>Value in Health</em>, 2025.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1007/s10198-024-01748-1">How are patient inputs considered in HTA? A thematic document analysis of NICE ultra-rare disease appraisals</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Rana A. <em>European Journal of Health Economics</em>, 2024.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1136/bmjopen-2024-091777">Managing experts’ conflicts of interest in the EU Joint Clinical Assessment</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Parvanova I. <em>BMJ Open</em>, 2024.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/S1470-2045(24)00286-9">A retrospective comparative analysis of the clinical benefit, reimbursement outcomes, and prices of FDA-approved cancer drugs reviewed through Project Orbis in the US, Canada, England, and Scotland</a></span><br>
+            <span class="meta">Jenei K, <strong>Gentilini A</strong>, Haslam A, Prasad V. <em>The Lancet Oncology</em>, 2024.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/j.socscimed.2023.116332">The role of patient organisations in research and development: evidence from rare diseases</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Miraldo M. <em>Social Science &amp; Medicine</em>, 2023.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/j.socscimed.2023.116045">Algorithms and heuristics of health technology assessments: a retrospective analysis of factors associated with HTA outcomes for new drugs across seven OECD countries</a></span><br>
+            <span class="meta">Kanavos P, Visentin E, <strong>Gentilini A</strong>. <em>Social Science &amp; Medicine</em>, 2023.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1136/bmjopen-2022-071138">Industry funding of patient organisations in the United Kingdom: a retrospective study of commercial determinants, funding concentration and disease prevalence</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Parvanova I. <em>BMJ Open</em>, 2023.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1136/bmj.p1243">Safeguarding NICE from patient groups’ conflicts of interest</a></span><br>
+            <span class="meta">Parvanova I, <strong>Gentilini A</strong>, Cushing J, Naci H. <em>The BMJ</em>, 2023.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1007/s41669-019-00191-w">The cost-effectiveness of nintedanib versus pirfenidone in idiopathic pulmonary fibrosis in Belgium</a></span><br>
+            <span class="meta">Rinciog C, Diamanthopulos A, <strong>Gentilini A</strong>, Bondue B, Dahlqvist C, Froidure A, Wuyts WA, Soulard S. <em>PharmacoEconomics Open</em>, 2019.</span></li>
+        </ul>
+
+        <h3>Under review</h3>
+        <ul class="clean">
+          <li><span class="pub-title">Do policy incentives align with pharmaceutical innovation challenges? A retrospective analysis of 42 countries (2000–2022)</span><br>
+            <span class="meta">Mermelstein S, <strong>Gentilini A</strong>, Stevens H, Miraldo M. Submitted to <em>Health Affairs</em>.</span></li>
+        </ul>
+
+        <h3>Selected reports and abstracts</h3>
+        <ul class="clean">
+          <li><span class="pub-title"><a href="https://doi.org/10.3030/101095593">Incentives for pharmaceutical innovation and equitable access to innovation</a></span><br>
+            <span class="meta">Miraldo M, Shaikh M, Yue C, <strong>Gentilini A</strong>, et al. CORDIS – EU research results, 2025.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2020.08.1097">Cost-effectiveness of vagus nerve stimulation for treatment-resistant depression in the United Kingdom</a></span><br>
+            <span class="meta"><strong>Gentilini A</strong>, Sawyer L, Langford B, Salih F, Murphy J. <em>Value in Health</em>, 2020.</span></li>
+          <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2019.09.252">Network meta-analysis comparing palbociclib plus fulvestrant with everolimus plus exemestane for HR+/HER2- advanced breast cancer resistant to previous endocrine therapy</a></span><br>
+            <span class="meta">LeReun C, <strong>Gentilini A</strong>, Large S, Chowdury MHR, Smith TA, Rinciog C. <em>Value in Health</em>, 2019.</span></li>
+        </ul>
+
+        <h3>Media coverage</h3>
+        <ul class="clean">
+          <li><a href="https://www.theguardian.com/science/2023/jul/22/revealed-drug-firms-funding-uk-patient-groups-that-lobby-for-nhs-approval-of-medicines">Revealed: drug firms funding UK patient groups that lobby for NHS approval of medicines</a><br>
+            <span class="meta">Shanti Das and Jon Ungoed-Thomas, <em>The Observer</em>, 23 July 2023.</span></li>
+        </ul>
+      </section>
+
+      <!-- TEACHING -->
+      <section class="page" id="teaching">
+        <h1 class="page-title">Teaching</h1>
+
+        <div class="two-col">
+          <div>
+            <h3>Imperial College London</h3>
+            <ul class="clean">
+              <li>Health Economics (MSc)<br><span class="meta">Seminar leader, 2023 &amp; 2024 · Prof. Marisa Miraldo; Prof. Laure de Preux</span></li>
+              <li>Research Methods &amp; Practice (BSc)<br><span class="meta">Seminar leader, 2023 · Prof. Sam Asher</span></li>
+              <li>Quantitative Methods (PhD)<br><span class="meta">Seminar leader, 2023 · Prof. Paola Criscuolo</span></li>
+              <li>Health Care Financing (MSc)<br><span class="meta">Seminar leader, 2022 · Prof. Pedro Rosa Dias</span></li>
+            </ul>
+          </div>
+          <div>
+            <h3>London School of Economics</h3>
+            <ul class="clean">
+              <li>Pharmaceutical Economics and Policy (MSc)<br><span class="meta">Seminar leader, 2024 · Prof. Panos Kanavos</span></li>
+              <li>Introduction to Quantitative Analysis (MSc)<br><span class="meta">Seminar leader, 2021 · Prof. Patrick Sturgis</span></li>
+              <li>Intermediate Quantitative Analysis (MSc/PhD)<br><span class="meta">Seminar leader, 2021 · Prof. Patrick Sturgis</span></li>
+              <li>LSE Health Market Access Academy (with Boston Consulting Group)<br><span class="meta">Class teacher, 2023–2024</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- TALKS -->
+      <section class="page" id="talks">
+        <h1 class="page-title">Talks &amp; service</h1>
+
+        <h3>Talks and conferences</h3>
+        <ul class="clean">
+          <li><span class="pub-title">Technology adoption in clinical trials: a global retrospective analysis of artificial intelligence and digital-health tools, 1990–2024</span><br>
+            <span class="meta">Oral presentation, Associazione Italiana Economia Sanitaria (AIES), Verona, December 2025</span></li>
+          <li><span class="pub-title">Assessing value of medicines: the example of HTA</span><br>
+            <span class="meta">Invited speaker, 8th Global Conference on Creating Value, London, November 2025</span></li>
+          <li><span class="pub-title">Do patient inputs matter? A thematic document analysis of NICE ultra-rare disease appraisals</span><br>
+            <span class="meta">Poster, HTAi Annual Meeting, Seville, June 2024</span></li>
+          <li><span class="pub-title">The role of patient organisations on research and development: evidence from rare diseases</span><br>
+            <span class="meta">Poster, American-European Health Economics Study Group, Harvard Kennedy School, July 2023</span></li>
+          <li><span class="pub-title">Leveraging pharmaceutical services to enhance NCD service delivery in LMICs: insights from Zambia</span><br>
+            <span class="meta">Poster, World Non-Communicable Diseases Congress, Toronto, June 2023</span></li>
+          <li><span class="pub-title">Industry funding of patient organisations in the United Kingdom</span><br>
+            <span class="meta">Invited speaker, Connaught Global Challenge Award Seminar Series, WHO Collaborating Centre for Governance, Accountability and Transparency in the Pharmaceutical Sector (virtual), March 2023</span></li>
+        </ul>
+
+        <h3>Service</h3>
+        <ul class="clean">
+          <li>Ad-hoc reviewer: <em>BMJ</em>, <em>Health Policy</em>, <em>Health Policy and Technology</em></li>
+          <li>Organiser, Workshop on Corruption and Conflicts of Interest in Healthcare, LSE, January 2024</li>
+          <li>Co-founder, LSE–LSHTM Rare Diseases Reading Group, 2021–2024</li>
+          <li>Member, Royal Economic Society</li>
+        </ul>
+      </section>
+
+    </main>
+
+    <footer>© 2026 Arianna Gentilini</footer>
   </div>
-</header>
 
-<main>
+</div>
 
-  <!-- ABOUT -->
-  <section class="hero" id="about">
-    <img src="photo.jpg" alt="Portrait of Arianna Gentilini">
-    <div>
-      <h1>Arianna Gentilini</h1>
-      <p class="role">British Academy Postdoctoral Fellow<br>
-      Department of Economics &amp; Public Policy, Imperial College London</p>
-
-      <p>I am a health economist and British Academy Postdoctoral Fellow at the Department of Economics &amp; Public Policy, Imperial College London, where I lead an independent three-year research programme on drug repurposing. My research focuses on pharmaceutical innovation, health technology assessment (HTA) and access to medicines.</p>
-
-      <p>Before the fellowship, I was a Postdoctoral Research Associate at Imperial College London, where I was co-investigator on a Gatsby Foundation project on the productivity of UK biopharmaceutical R&amp;D and contributed to the EU-funded Hi-Prix project on pharmaceutical innovation and equitable access. I completed my ESRC-funded PhD at the London School of Economics, studying the role of patient organisations in innovation and access to medicines for rare diseases.</p>
-
-      <p>My work uses both quantitative and qualitative methods, including econometrics, survival analysis, document analysis and interviews. It has been published in journals such as <em>The Lancet Oncology</em>, <em>The BMJ</em>, <em>Social Science &amp; Medicine</em> and <em>Value in Health</em>, and has been covered by <a href="https://www.theguardian.com/science/2023/jul/22/revealed-drug-firms-funding-uk-patient-groups-that-lobby-for-nhs-approval-of-medicines">The Observer</a>. Beyond academia, I have worked as a health economist at NICE, as a consultant for the World Bank, and in health economics and market access consultancies.</p>
-
-      <div class="links">
-        <a class="primary" href="cv.pdf">CV (PDF)</a>
-        <a href="https://scholar.google.com/citations?user=Y7LkgEoAAAAJ&amp;hl=en">Google Scholar</a>
-        <a href="https://www.linkedin.com/in/arianna-gentilini-b0417212a/">LinkedIn</a>
-        <a href="https://twitter.com/agentilini_">X / Twitter</a>
-        <a href="mailto:a.gentilini@imperial.ac.uk">Email</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- RESEARCH -->
-  <section id="research">
-    <h2>Research</h2>
-    <p>My research asks how policy, institutions and stakeholders shape which medicines are developed, how they are valued, and who gets access to them.</p>
-
-    <h3>Current and recent projects</h3>
-    <div class="project">
-      <strong>Drug repurposing <span class="tag">Since 2026</span></strong>
-      <span class="meta">British Academy Postdoctoral Fellowship, Imperial College London (£580,176). Principal investigator.</span>
-    </div>
-    <div class="project">
-      <strong>Drug Development Productivity: The Performance of the UK Biopharmaceutical Industry <span class="tag">2024–2026</span></strong>
-      <span class="meta">Gatsby Foundation (£154,317). Co-investigator.</span>
-    </div>
-    <div class="project">
-      <strong>Hi-Prix: Incentives for pharmaceutical innovation and equitable access <span class="tag">2024–2026</span></strong>
-      <span class="meta">EU Horizon Europe. Comparative policy analysis of innovation incentives across countries.</span>
-    </div>
-    <div class="project">
-      <strong>IMPACT HTA <span class="tag">2020–2024</span></strong>
-      <span class="meta">EU-funded. Drivers of reimbursement timelines and outcomes across OECD countries.</span>
-    </div>
-
-    <h3>Awards and funding</h3>
-    <ul class="clean">
-      <li>British Academy Postdoctoral Fellowship, 2026</li>
-      <li>Highly Commended, LSE Class Teacher Awards, 2023–24</li>
-      <li>“Italy Made Me” award for outstanding research by Italian early-career researchers in the UK, 2023</li>
-      <li>ESRC Doctoral Training Partnership studentship, 2020–2024</li>
-    </ul>
-  </section>
-
-  <!-- PUBLICATIONS -->
-  <section id="publications">
-    <h2>Publications</h2>
-
-    <h3>Peer-reviewed articles</h3>
-    <ul class="clean">
-      <li><span class="pub-title"><a href="https://doi.org/10.1186/s12992-026-01205-z">Patient organizations involvement in healthcare: a rapid review and conceptual framework</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Parvanova I, Ghazi S et al. <em>Globalization and Health</em>, 2026.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2026.01.018">Conflicts of interest in FDA advisory committees: a systematic literature review</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Raymakers AJN, Rand LZ. <em>Value in Health</em>, 2026.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1080/20523211.2025.2462450">Expanding access to NCD services via community retail pharmacies in LMICs: a systematic review of the literature</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Kasonde L, Babar ZUD. <em>Journal of Pharmaceutical Policy and Practice</em>, 2025.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2024.12.009">Rare disease policy in high-income countries: an overview of achievements, challenges, and solutions</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Neez E, Wong-Rieger D. <em>Value in Health</em>, 2025.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1007/s10198-024-01748-1">How are patient inputs considered in HTA? A thematic document analysis of NICE ultra-rare disease appraisals</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Rana A. <em>European Journal of Health Economics</em>, 2024.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1136/bmjopen-2024-091777">Managing experts’ conflicts of interest in the EU Joint Clinical Assessment</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Parvanova I. <em>BMJ Open</em>, 2024.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/S1470-2045(24)00286-9">A retrospective comparative analysis of the clinical benefit, reimbursement outcomes, and prices of FDA-approved cancer drugs reviewed through Project Orbis in the US, Canada, England, and Scotland</a></span><br>
-        <span class="meta">Jenei K, <strong>Gentilini A</strong>, Haslam A, Prasad V. <em>The Lancet Oncology</em>, 2024.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/j.socscimed.2023.116332">The role of patient organisations in research and development: evidence from rare diseases</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Miraldo M. <em>Social Science &amp; Medicine</em>, 2023.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/j.socscimed.2023.116045">Algorithms and heuristics of health technology assessments: a retrospective analysis of factors associated with HTA outcomes for new drugs across seven OECD countries</a></span><br>
-        <span class="meta">Kanavos P, Visentin E, <strong>Gentilini A</strong>. <em>Social Science &amp; Medicine</em>, 2023.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1136/bmjopen-2022-071138">Industry funding of patient organisations in the United Kingdom: a retrospective study of commercial determinants, funding concentration and disease prevalence</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Parvanova I. <em>BMJ Open</em>, 2023.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1136/bmj.p1243">Safeguarding NICE from patient groups’ conflicts of interest</a></span><br>
-        <span class="meta">Parvanova I, <strong>Gentilini A</strong>, Cushing J, Naci H. <em>The BMJ</em>, 2023.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1007/s41669-019-00191-w">The cost-effectiveness of nintedanib versus pirfenidone in idiopathic pulmonary fibrosis in Belgium</a></span><br>
-        <span class="meta">Rinciog C, Diamanthopulos A, <strong>Gentilini A</strong>, Bondue B, Dahlqvist C, Froidure A, Wuyts WA, Soulard S. <em>PharmacoEconomics Open</em>, 2019.</span></li>
-    </ul>
-
-    <h3>Under review</h3>
-    <ul class="clean">
-      <li><span class="pub-title">Do policy incentives align with pharmaceutical innovation challenges? A retrospective analysis of 42 countries (2000–2022)</span><br>
-        <span class="meta">Mermelstein S, <strong>Gentilini A</strong>, Stevens H, Miraldo M. Submitted to <em>Health Affairs</em>.</span></li>
-    </ul>
-
-    <h3>Selected reports and abstracts</h3>
-    <ul class="clean">
-      <li><span class="pub-title"><a href="https://doi.org/10.3030/101095593">Incentives for pharmaceutical innovation and equitable access to innovation</a></span><br>
-        <span class="meta">Miraldo M, Shaikh M, Yue C, <strong>Gentilini A</strong>, et al. CORDIS – EU research results, 2025.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2020.08.1097">Cost-effectiveness of vagus nerve stimulation for treatment-resistant depression in the United Kingdom</a></span><br>
-        <span class="meta"><strong>Gentilini A</strong>, Sawyer L, Langford B, Salih F, Murphy J. <em>Value in Health</em>, 2020.</span></li>
-      <li><span class="pub-title"><a href="https://doi.org/10.1016/j.jval.2019.09.252">Network meta-analysis comparing palbociclib plus fulvestrant with everolimus plus exemestane for HR+/HER2- advanced breast cancer resistant to previous endocrine therapy</a></span><br>
-        <span class="meta">LeReun C, <strong>Gentilini A</strong>, Large S, Chowdury MHR, Smith TA, Rinciog C. <em>Value in Health</em>, 2019.</span></li>
-    </ul>
-
-    <h3>Media coverage</h3>
-    <ul class="clean">
-      <li><a href="https://www.theguardian.com/science/2023/jul/22/revealed-drug-firms-funding-uk-patient-groups-that-lobby-for-nhs-approval-of-medicines">Revealed: drug firms funding UK patient groups that lobby for NHS approval of medicines</a><br>
-        <span class="meta">Shanti Das and Jon Ungoed-Thomas, <em>The Observer</em>, 23 July 2023.</span></li>
-    </ul>
-  </section>
-
-  <!-- TEACHING -->
-  <section id="teaching">
-    <h2>Teaching</h2>
-    <div class="two-col">
-      <div>
-        <h3>Imperial College London</h3>
-        <ul class="clean">
-          <li>Health Economics (MSc)<br><span class="meta">Seminar leader, 2023 &amp; 2024 · Prof. Marisa Miraldo; Prof. Laure de Preux</span></li>
-          <li>Research Methods &amp; Practice (BSc)<br><span class="meta">Seminar leader, 2023 · Prof. Sam Asher</span></li>
-          <li>Quantitative Methods (PhD)<br><span class="meta">Seminar leader, 2023 · Prof. Paola Criscuolo</span></li>
-          <li>Health Care Financing (MSc)<br><span class="meta">Seminar leader, 2022 · Prof. Pedro Rosa Dias</span></li>
-        </ul>
-      </div>
-      <div>
-        <h3>London School of Economics</h3>
-        <ul class="clean">
-          <li>Pharmaceutical Economics and Policy (MSc)<br><span class="meta">Seminar leader, 2024 · Prof. Panos Kanavos</span></li>
-          <li>Introduction to Quantitative Analysis (MSc)<br><span class="meta">Seminar leader, 2021 · Prof. Patrick Sturgis</span></li>
-          <li>Intermediate Quantitative Analysis (MSc/PhD)<br><span class="meta">Seminar leader, 2021 · Prof. Patrick Sturgis</span></li>
-          <li>LSE Health Market Access Academy (with Boston Consulting Group)<br><span class="meta">Class teacher, 2023–2024</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <h3>MSc supervision</h3>
-    <ul class="clean">
-      <li>Lena Michaelis, MSc International Health Policy (Health Economics), LSE, 2023–2024</li>
-      <li>Alina Rana, MSc International Health Policy, LSE, 2022–2023</li>
-    </ul>
-  </section>
-
-  <!-- TALKS -->
-  <section id="talks">
-    <h2>Talks and conferences</h2>
-    <ul class="clean">
-      <li><span class="pub-title">Technology adoption in clinical trials: a global retrospective analysis of artificial intelligence and digital-health tools, 1990–2024</span><br>
-        <span class="meta">Oral presentation, Associazione Italiana Economia Sanitaria (AIES), Verona, December 2025</span></li>
-      <li><span class="pub-title">Assessing value of medicines: the example of HTA</span><br>
-        <span class="meta">Invited speaker, 8th Global Conference on Creating Value, London, November 2025</span></li>
-      <li><span class="pub-title">Do patient inputs matter? A thematic document analysis of NICE ultra-rare disease appraisals</span><br>
-        <span class="meta">Poster, HTAi Annual Meeting, Seville, June 2024</span></li>
-      <li><span class="pub-title">The role of patient organisations on research and development: evidence from rare diseases</span><br>
-        <span class="meta">Poster, American-European Health Economics Study Group, Harvard Kennedy School, July 2023</span></li>
-      <li><span class="pub-title">Leveraging pharmaceutical services to enhance NCD service delivery in LMICs: insights from Zambia</span><br>
-        <span class="meta">Poster, World Non-Communicable Diseases Congress, Toronto, June 2023</span></li>
-      <li><span class="pub-title">Industry funding of patient organisations in the United Kingdom</span><br>
-        <span class="meta">Invited speaker, Connaught Global Challenge Award Seminar Series, WHO Collaborating Centre for Governance, Accountability and Transparency in the Pharmaceutical Sector (virtual), March 2023</span></li>
-    </ul>
-
-    <h3>Service</h3>
-    <ul class="clean">
-      <li>Ad-hoc reviewer: <em>BMJ</em>, <em>Health Policy</em>, <em>Health Policy and Technology</em></li>
-      <li>Organiser, Workshop on Corruption and Conflicts of Interest in Healthcare, LSE, January 2024</li>
-      <li>Co-founder, LSE–LSHTM Rare Diseases Reading Group, 2021–2024</li>
-      <li>Member, Royal Economic Society</li>
-    </ul>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:a.gentilini@imperial.ac.uk">a.gentilini@imperial.ac.uk</a> · <a href="mailto:arianna.gentilini.ag@gmail.com">arianna.gentilini.ag@gmail.com</a></p>
-  </section>
-
-</main>
-
-<footer>© 2026 Arianna Gentilini · Last updated November 2026</footer>
-
+<script>
+  // Shows one section at a time, like separate pages
+  const pages = document.querySelectorAll('.page');
+  const tabs = document.querySelectorAll('.tabs a');
+  function showPage() {
+    let id = location.hash.replace('#', '') || 'about';
+    if (!document.getElementById(id)) id = 'about';
+    pages.forEach(p => p.classList.toggle('active', p.id === id));
+    tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#' + id));
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', showPage);
+  showPage();
+</script>
 </body>
 </html>
